@@ -28,6 +28,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **scipy**: RBF 插值回退方案
 - **matplotlib**: 可视化（仅小功能脚本使用）
 
+## 输入数据路径
+
+所有栅格数据存放在 `D:\桌面文件\mode\` 下，代码中硬编码路径，切换年份需修改 `RAIN_DIR` 和 `ET_DIR`。
+
+### 降雨 `D:\桌面文件\mode\rain\rain daily tiff\`
+
+| 年份 | 文件数 | 命名格式 | 示例 |
+|------|--------|----------|------|
+| 2022 | 487 | `PRE_YYYY_Day_DOY.tif` | `PRE_2022_Day_001.tif` ~ `PRE_2022_Day_365.tif` |
+| 2024 | 367 | 同上 | `PRE_2024_Day_001.tif` ~ `PRE_2024_Day_366.tif`（闰年） |
+
+### 蒸散发 `D:\桌面文件\mode\蒸散发\`
+
+| 子目录 | 文件数 | 格式 | 示例 |
+|--------|--------|------|------|
+| `T_2022_daily_tiff\` | 478 | `T_YYYYDOY.tif` + `.aux.xml` | `T_2022001.tif` ~ `T_2022365.tif` |
+| `T_2024_daily_tiff\` | 367 | 同上 | `T_2024001.tif` ~ `T_2024366.tif` |
+| `T_2022_daily\` | 367 | `.nc` (NetCDF 原始数据) | — |
+| `T_2024_daily\` | 366 | `.nc` (NetCDF 原始数据) | — |
+
+### 静态栅格
+
+| 路径 | 文件数 | 用途 |
+|------|--------|------|
+| `D:\桌面文件\mode\rice_crayfish\` | 17 | 基准掩膜 `Rice_2021.tif` |
+| `D:\桌面文件\mode\soil\` | 10 | 土壤 `Environmental Date_pH.tif` + `Environmental Data_SOM.tif` |
+| `D:\桌面文件\mode\nitrogen_fertilizer_use\` | 138 | 氮肥用量 `Nfer-2018` |
+
+### 命名兼容性
+
+两种 ET 命名格式（`PRE_YYYY_Day_DOY` 和 `T_YYYYDOY`）均可被 `find_daily_file()` 的模式匹配覆盖，无需修改代码。
+
+### 输出路径
+
+`D:\#data\Python\面上估算\测试V2\` — 输出 `TN_Load_*.tif` 和 `TN_TotalMass_*.tif`。
+
 ## 单位体系（完整参考）
 
 ### 气象与水文模块
