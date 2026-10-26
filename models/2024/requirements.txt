@@ -1,0 +1,5 @@
+# 推荐使用配套QGIS Python，以匹配GDAL本机库
+numpy
+GDAL
+matplotlib
+openpyxl
