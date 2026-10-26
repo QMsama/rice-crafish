@@ -1,10 +1,8 @@
-# 2024 annual mainline
+# 2024 model workflow
 
-- The stable model branch is model/2024. Read BRANCH_POLICY.json before creating a branch or PR.
-- Create feat/2024-<feature>, fix/2024-<issue>, or chore/2024-<task> from current model/2024; target PRs to model/2024.
-- Keep this annual model in models/2024. Complete verification, update its CHANGELOG in the feature branch, and obtain code review before merging within the user's authorization.
-- Use merge commits to retain feature history and merge points. Verify both the PR head and its model/2024 base before merging.
-- Each annual model has its own stable line, settings and validation. Shared changes are adapted and reviewed separately for each year. main maintains the catalog and archive documentation.
-- Preserve existing model source bytes during repository-only changes; model SOURCE_MANIFEST paths are relative to models/2024.
-- Keep work scripts, logs, caches, previews and verification artifacts under the project's .codex-work. Preserve original inputs, the project .codex, user configuration and existing history.
-- Distinguish computation reproduction from independent observational validation.
+- Base feature/fix/chore branches on model/2024; target PRs to model/2024 with merge commits.
+- Keep current runtime code in models/2024; historical sources and notes belong in archive/models/2024.
+- Stage only files for the requested change; use concise Conventional Commits and one model CHANGELOG.
+- Preserve model rules, parameters, input provenance and user changes during archival work.
+- Keep work scripts, logs, previews and caches in project .codex-work; preserve project .codex and user configuration.
+- Review changes before merge. Confirm file or branch deletion separately; archive moves preserve original bytes.
