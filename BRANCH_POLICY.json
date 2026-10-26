@@ -3,8 +3,8 @@
   "catalog_branch": "main",
   "snapshot_date": "2026-10-26",
   "snapshot_model_trees": {
-    "models/2022": "c1e68fa3e4da06d0925a29047498e7c104614f59",
-    "models/2024": "99d2e3d46704a1ddec47185a531fb2a68a0454d6"
+    "archive/snapshots/20261026/models/2022": "c1e68fa3e4da06d0925a29047498e7c104614f59",
+    "archive/snapshots/20261026/models/2024": "99d2e3d46704a1ddec47185a531fb2a68a0454d6"
   },
   "annual_mainlines": {
     "2022": {
