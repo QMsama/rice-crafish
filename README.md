@@ -1,38 +1,33 @@
-# 稻虾TN模型 · 2022
+# 稻虾TN模型
 
-分支 `model/2022`，登记版本 `2022.20261026`。当前区域配置为 `paper_2022`，模拟时段2022-06-05—2022-09-23，共111天。
+`main`保存已完成验证并合并的正式代码。2022、2024模型分别放在独立目录，按年份保留配置、功能谱系和运行记录。
 
-## 功能与版本
+| 代码目录 | 功能 | 年度集成分支 |
+|---|---|---|
+| [models/2022](models/2022/) | 2022当前/历史区域配置、点位模型源码谱系、ET/晒田功能及关键源区识别 | [model/2022](https://github.com/QMsama/rice-crafish/tree/model/2022) |
+| [models/2024](models/2024/) | 2024当前区域模型、管理日历、QGIS入口与14个历史情景运行摘要 | [model/2024](https://github.com/QMsama/rice-crafish/tree/model/2024) |
 
-区域核心完成逐日降雨/ET输入、RM田面灌排、RCC田面—沟渠水量转移、施肥事件TN浓度和系统出口TN负荷。配套功能包括2022点位TN率定、背景/投饵项、ET与两种晒田策略的源码快照，以及2022关键源区识别工具。
+## 使用模型
 
-RM普通无雨日保留田面积水；雨日采用max(阶段上限,120 mm)。RCC沟渠初始水深/外排上限为400/400 mm。RM晒田6月29日至7月1日，RCC为7月4日至14日。RCC施肥6月13日/25日，第一事件采用basal公式。
-
-`configs/legacy_2022.json`保留2022历史配置：RCC沟渠800/900 mm，RM雨日采用阶段上限。其参考均值RM/RCC为4.387803351/2.563818603 kg/ha。
-
-| RM均值 kg/ha | RCC均值 kg/ha | RM总量 t | RCC总量 t |
-|---:|---:|---:|---:|
-| 2.836984785 | 3.882241605 | 1615.540247 | 1314.639748 |
-
-原运行ID、参数和参考数值见 `configs/paper_2022.json`。模型功能和历史节点见 [CHANGELOG.md](CHANGELOG.md) 与 [history](history/)。2022点位率定指标、区域情景输出和2024情景结果各有适用的数据与管理规则。
-
-## 运行区域模型
-
-先准备 [输入数据](docs/INPUTS.md)，在本分支根目录执行：
+先进入对应模型目录，再按照该目录的README准备外部数据并运行。例如在仓库根目录的PowerShell中：
 
 ```powershell
+Set-Location .\models\2022
 & 'C:\Program Files\QGIS 3.44.12\bin\python-qgis-ltr.bat' .\run_model.py --preset paper_2022 --root 'E:\#岑俊毅\2.论文\2.稻虾综合种养'
 ```
 
-`--root` 指向含“模型/2026.9.3/模型背景数据”的数据项目。QGIS Python控制台可使用下面的方式；将代码目录放在该数据项目内，便于入口向上查找数据根：
+运行2024时，在仓库根目录进入`models/2024`，配置为`current_2024`。模型目录内README所说的运行根目录，指该年份的模型目录。SOURCE_MANIFEST中的发布路径也相对于所在年份目录。
 
-```python
-import runpy
-runpy.run_path(r'本分支完整路径/qgis_entry.py', run_name='__main__')
-```
+区域模型的运行、缓存与清单保存在数据项目的`.codex-work/regional_reproduction`。2022关键源区工具通过显式数据根运行；点位源码快照按其README恢复配套批次输入。对应数据合同和核验记录位于各年份目录。
 
-QGIS入口默认运行 `paper_2022`，完成后加载6个结果栅格。每次运行、缓存与清单保存到数据项目的 `.codex-work/regional_reproduction/`。
+## 功能开发与合并
 
-## 追溯
+每个功能建立独立分支，例如`feat/2022-natural-drydown`。开发、检查和代码提交完成后创建PR，将已验证功能合并到`main`。PR采用merge方式，保留功能分支的提交及汇合记录。操作规则见[DEVELOPMENT.md](DEVELOPMENT.md)。
 
-`SOURCE_MANIFEST.json`记录本地来源相对路径、源SHA-256及发布SHA-256。`VERSION.json`记录年份、默认配置和基准运行。2026年5月仓库历史代码可从[归档分支](https://github.com/QMsama/rice-crafish/tree/archive/legacy-20261026)查看；年份导航位于[main](https://github.com/QMsama/rice-crafish/tree/main)。后续同年份修改在本分支创建新的代码提交，并在CHANGELOG记录功能、参数、验证和结果变化。
+年度分支保留本次对应年份的集成记录，可用于开发和版本对照。继续在年度分支工作前，先同步最新main。普通单功能开发从最新main创建feat分支，直接通过PR合入main。
+
+## 历史与追溯
+
+各模型目录的CHANGELOG、VERSION、SOURCE_MANIFEST、history和VERIFICATION分别记录功能变化、来源批次、代码哈希与检查结果。仓库级变更见[CHANGELOG.md](CHANGELOG.md)。
+
+原仓库完整文件树保存在[archive/legacy-20261026](archive/legacy-20261026/)，并由[同名归档分支](https://github.com/QMsama/rice-crafish/tree/archive/legacy-20261026)固定。原提交历史保留，归档代码按其历史环境与数据条件解释。
