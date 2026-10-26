@@ -1,0 +1,32 @@
+{
+  "id": "paper_2022",
+  "year": 2022,
+  "start": "2022-06-05",
+  "days": 111,
+  "arguments": [
+    "--year",
+    "2022",
+    "--start",
+    "2022-06-05",
+    "--days",
+    "111",
+    "--c0",
+    "grid",
+    "--rm-no-drain",
+    "--rm-bund",
+    "120",
+    "--ditch-cap",
+    "400"
+  ],
+  "reference_run": "run_20261023_003716_official",
+  "expected": {
+    "RM": {
+      "mean_kg_ha": 2.8369847849192356,
+      "total_t": 1615.5402468357668
+    },
+    "RCC": {
+      "mean_kg_ha": 3.882241605299934,
+      "total_t": 1314.639748079209
+    }
+  }
+}

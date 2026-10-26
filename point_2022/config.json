@@ -1,0 +1,90 @@
+{
+  "project_root": "E:/#岑俊毅/2.论文/2.稻虾综合种养",
+  "output_directory": "E:/#岑俊毅/2.论文/2.稻虾综合种养/模型/2026.9.3/2022点位验证",
+  "start_date": "2022-06-01",
+  "end_date": "2022-10-31",
+  "longitude": 112.6166,
+  "latitude": 30.3833,
+  "observations": "模型/2026.9.3/提取数据/2022年大田实验数据/模型分析数据/TN观测数据.csv",
+  "rain_directory": "模型/2026.9.3/模型背景数据/rain daily tiff/2022",
+  "transpiration_directory": "模型/2026.9.3/模型背景数据/蒸散发/T_2022_daily_tiff",
+  "rain_filename_pattern": "PRE_{year}_Day_{doy:03d}.tif",
+  "transpiration_filename_pattern": "T_{year}{doy:03d}.tif",
+  "soil_interpolation": ".codex-work/soil-source-check-20261004/interpolation.json",
+  "soil_source_files": {
+    "pH": "模型/2026.9.3/模型背景数据/soil/Environmental Date_pH.tif",
+    "SOM": "模型/2026.9.3/模型背景数据/soil/Environmental Data_SOM.tif"
+  },
+  "som_source_unit_assumed": "percent",
+  "som_unit_confirmed": false,
+  "initial_tn_mg_L": 0.0,
+  "event_rule": "latest_event",
+  "run_label": "climate2022_nfer2018_raster_proxy",
+  "events": [
+    {
+      "treatment": "RM",
+      "date": "2022-06-18",
+      "stage": "tillering",
+      "N_fraction": 0.6,
+      "response_lag_days": 0,
+      "stage_status": "manuscript_蘖肥"
+    },
+    {
+      "treatment": "RM",
+      "date": "2022-07-06",
+      "stage": "tillering",
+      "N_fraction": 0.4,
+      "response_lag_days": 0,
+      "stage_status": "manuscript_追肥; tillering_mapping_pending"
+    },
+    {
+      "treatment": "RCC",
+      "date": "2022-06-14",
+      "stage": "basal",
+      "N_fraction": 0.6,
+      "response_lag_days": 0,
+      "stage_status": "manuscript_底肥"
+    },
+    {
+      "treatment": "RCC",
+      "date": "2022-06-27",
+      "stage": "tillering",
+      "N_fraction": 0.4,
+      "response_lag_days": 0,
+      "stage_status": "manuscript_蘖肥"
+    }
+  ],
+  "coefficients": {
+    "basal": {
+      "a0": -21.469,
+      "aN": 0.841,
+      "apH": 3.074,
+      "aSOM": 0.0,
+      "k_day": 0.37
+    },
+    "tillering": {
+      "a0": -101.2,
+      "aN": 0.54,
+      "apH": 22.184,
+      "aSOM": -11.093,
+      "k_day": 0.339
+    },
+    "panicle": {
+      "a0": -164.918,
+      "aN": 0.435,
+      "apH": 26.256,
+      "aSOM": 0.0,
+      "k_day": 0.501
+    }
+  },
+  "source_files": [
+    "Rice-crayfish systems 20260920 V1.docx",
+    ".codex-work/model-literature/1-s2.0-S0301479722005059-main.txt",
+    ".codex-work/model-literature/张怡杰-学位论文.txt",
+    "模型/2026.9.3/原始数据/2022年大田实验数据/2022年大田实验数据提取.xlsx"
+  ],
+  "nfer_raster": "模型/2026.9.3/模型背景数据/nitrogen_fertilizer_use/Nfer-2018",
+  "nfer_unit_factor": 10.0,
+  "nfer_to_rice_season_factor": 1.0,
+  "nfer_mapping_status": "annual_land_intensity_as_rice_season_proxy; crop_area_mapping_pending"
+}

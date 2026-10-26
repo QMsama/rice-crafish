@@ -1,22 +1,38 @@
-# 稻虾TN模型
+# 稻虾TN模型 · 2022
 
-本仓库按模拟年份维护代码，以提交记录关联模型功能、参数和运行批次。
+分支 `model/2022`，登记版本 `2022.20261026`。当前区域配置为 `paper_2022`，模拟时段2022-06-05—2022-09-23，共111天。
 
-| 分支 | 适用内容 | 当前登记版本 |
-|---|---|---|
-| [model/2022](https://github.com/QMsama/rice-crafish/tree/model/2022) | 2022区域模型、历史区域配置、点位率定/ET/晒田功能、关键源区识别 | 2022.20261026 |
-| [model/2024](https://github.com/QMsama/rice-crafish/tree/model/2024) | 2024当前区域配置、管理日历、QGIS复现和历史情景运行索引 | 2024.20261026 |
-| [archive/legacy-20261026](https://github.com/QMsama/rice-crafish/tree/archive/legacy-20261026) | 截至2026-10-26的旧仓库完整快照及其提交历史 | e6fb108 |
+## 功能与版本
 
-进入对应年份分支即可查看代码、运行说明、输入数据合同、版本记录与文件来源哈希。两个年份分别保留管理日历和沟渠参数，当前年度差异同时包含气象与情景规则差异。
+区域核心完成逐日降雨/ET输入、RM田面灌排、RCC田面—沟渠水量转移、施肥事件TN浓度和系统出口TN负荷。配套功能包括2022点位TN率定、背景/投饵项、ET与两种晒田策略的源码快照，以及2022关键源区识别工具。
 
-## 版本追溯
+RM普通无雨日保留田面积水；雨日采用max(阶段上限,120 mm)。RCC沟渠初始水深/外排上限为400/400 mm。RM晒田6月29日至7月1日，RCC为7月4日至14日。RCC施肥6月13日/25日，第一事件采用basal公式。
 
-- **代码提交**：查看每次具体代码变化和提交说明。
-- **CHANGELOG**：查看功能、参数、检查和结果口径的变化。
-- **VERSION / SOURCE_MANIFEST**：查到年份配置、来源批次和文件哈希。
-- **运行清单**：实际计算时保存输入、代码、配置哈希和独立运行目录。
+`configs/legacy_2022.json`保留2022历史配置：RCC沟渠800/900 mm，RM雨日采用阶段上限。其参考均值RM/RCC为4.387803351/2.563818603 kg/ha。
 
-2026年5月原仓库文件也完整保存在[archive/legacy-20261026](archive/legacy-20261026/)，包括原代码、说明文件与Word文档。归档子树沿用原Git对象，原有提交历史继续保留。
+| RM均值 kg/ha | RCC均值 kg/ha | RM总量 t | RCC总量 t |
+|---:|---:|---:|---:|
+| 2.836984785 | 3.882241605 | 1615.540247 | 1314.639748 |
 
-仓库纳入源码、配置、管理阈值和运行说明。逐日栅格与原始观测由各模型输入合同指定的数据项目提供。各年份输出中的复现核验用于计算一致性检查，实测评价按对应观测与管理规则开展。
+原运行ID、参数和参考数值见 `configs/paper_2022.json`。模型功能和历史节点见 [CHANGELOG.md](CHANGELOG.md) 与 [history](history/)。2022点位率定指标、区域情景输出和2024情景结果各有适用的数据与管理规则。
+
+## 运行区域模型
+
+先准备 [输入数据](docs/INPUTS.md)，在本分支根目录执行：
+
+```powershell
+& 'C:\Program Files\QGIS 3.44.12\bin\python-qgis-ltr.bat' .\run_model.py --preset paper_2022 --root 'E:\#岑俊毅\2.论文\2.稻虾综合种养'
+```
+
+`--root` 指向含“模型/2026.9.3/模型背景数据”的数据项目。QGIS Python控制台可使用下面的方式；将代码目录放在该数据项目内，便于入口向上查找数据根：
+
+```python
+import runpy
+runpy.run_path(r'本分支完整路径/qgis_entry.py', run_name='__main__')
+```
+
+QGIS入口默认运行 `paper_2022`，完成后加载6个结果栅格。每次运行、缓存与清单保存到数据项目的 `.codex-work/regional_reproduction/`。
+
+## 追溯
+
+`SOURCE_MANIFEST.json`记录本地来源相对路径、源SHA-256及发布SHA-256。`VERSION.json`记录年份、默认配置和基准运行。2026年5月仓库历史代码可从[归档分支](https://github.com/QMsama/rice-crafish/tree/archive/legacy-20261026)查看；年份导航位于[main](https://github.com/QMsama/rice-crafish/tree/main)。后续同年份修改在本分支创建新的代码提交，并在CHANGELOG记录功能、参数、验证和结果变化。
