@@ -5,12 +5,3 @@ __pycache__/
 *.pyo
 .env
 .env.*
-*.log
-*.npz
-*.tif
-*.tiff
-*.xlsx
-*.docx
-*.pdf
-*.png
-*.qgz
