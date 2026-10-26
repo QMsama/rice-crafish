@@ -1,7 +1,10 @@
 """区域逐日水量、田面TN代理浓度和系统外排负荷计算。
-计算分支来自DSH regional_run.py；路径和运行清单由复现入口管理。
+按年度配置运行，输入检查、缓存和输出由本模块统一管理。
 """
 from __future__ import annotations
+
+import sys
+sys.dont_write_bytecode = True
 
 import argparse
 import csv
@@ -12,6 +15,9 @@ import uuid
 from datetime import date, timedelta
 from pathlib import Path
 
+from water_balance import vol_per_m, manage, regional_ditch_step
+from water_quality import (ALPHA, KDECAY, BACKGROUND, FEED_CONC,
+                           c0_from_grid, regional_concentration)
 from osgeo import gdal, osr
 import numpy as np
 
@@ -27,19 +33,6 @@ END = date(2022, 9, 23)
 DAYS = [START + timedelta(days=i) for i in range((END - START).days + 1)]
 
 # --- 点位参数（来自 2026-10-22 运行）---
-ALPHA = {"RM": 0.17910631036786312, "RCC": 0.18862475682454152}
-KDECAY = {"RM": 0.32084970234924104, "RCC": 0.436}
-BACKGROUND = 0.38139121394675596
-GAMMA = 1.0217016137162531
-FEED_KG_DAY = 3.25
-PROTEIN = 0.32
-SYSTEM_HA = 0.31
-FEED_CONC = GAMMA * FEED_KG_DAY * PROTEIN / 6.25 / SYSTEM_HA
-
-COEF = {
-    "basal": dict(a0=-21.469, aN=0.841, apH=3.074, aSOM=0.0),
-    "tillering": dict(a0=-101.2, aN=0.54, apH=22.184, aSOM=-11.093),
-}
 
 EVENTS = {
     "RM": [
@@ -65,9 +58,6 @@ INFIL_MM = 2.0
 STORM_DRAIN = False  # 区域沿用点位规则，不额外加暴雨阈值
 
 
-def vol_per_m(h_mm: float, b: float = DITCH_B, a: float = DITCH_A) -> float:
-    h = h_mm / 1000.0
-    return b * h + a * h * h
 
 
 V_INIT = DITCH_L * vol_per_m(DITCH_H0_MM)
@@ -115,37 +105,8 @@ def read_thresholds(days):
     return table
 
 
-def manage(water, rain, lo, tg, cap, drying):
-    """与 drying_control.manage 等价的逐像元版本。"""
-    w = water.copy()
-    drain = np.zeros_like(w)
-    irr = np.zeros_like(w)
-    if drying:
-        drain = w.copy()
-        w[:] = 0.0
-        return w, drain, irr
-    if tg == 0:
-        over = np.maximum(0.0, w - cap)
-        drain = over
-        w = w - over
-        return w, drain, irr
-    low = w < lo
-    irr[low] = tg - w[low]
-    w[low] = tg
-    rainmask = (rain > 0) & (w > cap)
-    over = np.where(rainmask, w - cap, 0.0)
-    w = np.where(rainmask, cap, w)
-    norain = (~rainmask) & (rain == 0) & (w > tg)
-    over2 = np.where(norain, w - tg, 0.0)
-    w = np.where(norain, tg, w)
-    drain = over + over2
-    return w, drain, irr
 
 
-def c0_from_grid(N_kg_ha, ph, som, event):
-    c = COEF[event["stage"]]
-    raw = c["a0"] + c["aN"] * (N_kg_ha * event["frac"]) + c["apH"] * ph + c["aSOM"] * som
-    return np.maximum(0.0, raw)
 
 
 def build_cache(mask_ds, mask, valid_idx, days, cache_path: Path):
@@ -173,7 +134,7 @@ def build_cache(mask_ds, mask, valid_idx, days, cache_path: Path):
     return rain, et
 
 
-def main(argv=None):
+def calculate(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--c0", choices=["grid", "fixed"], default="grid")
     ap.add_argument("--no-rain-drain", action="store_true", help="两个处理都关闭无雨日退水")
@@ -290,16 +251,7 @@ def main(argv=None):
     outlet_rcc_tot = np.zeros(n, dtype=np.float64)
 
     def conc(t, d):
-        c = np.full(n, BACKGROUND)
-        if t == "RCC":
-            c = c + FEED_CONC
-        evs = EVENTS[t]
-        active = [j for j, e in enumerate(evs) if d >= e["response"]]
-        if active:
-            j = active[-1]
-            dt = (d - evs[j]["response"]).days
-            c = c + c0[(t, j)] * math.exp(-KDECAY[t] * dt)
-        return c
+        return regional_concentration(t, d, n, EVENTS, c0)
 
     t0 = time.time()
     ledger = []
@@ -351,26 +303,8 @@ def main(argv=None):
         dr = np.where(is_rcc, dr, 0.0)
 
         # --- 沟渠 ---
-        inflow = dr / 1000.0 * (RCC_PADDY_FRAC * A_TOTAL)
-        h_d = np.zeros(n)
-        # 由体积反算水深（仅用于湿面积）
-        h_d[is_rcc] = (-DITCH_B + np.sqrt(DITCH_B**2 + 4 * DITCH_A * v_d[is_rcc] / DITCH_L)) / (2 * DITCH_A)
-        wet_area = DITCH_L * (DITCH_B + 2 * DITCH_A * h_d)
-        avail = v_d + P / 1000.0 * (RCC_DITCH_FRAC * A_TOTAL) + inflow
-        loss_vol = loss / 1000.0 * wet_area
-        loss_vol = np.minimum(loss_vol, np.maximum(avail, 0.0))
-        v = np.maximum(0.0, avail - loss_vol)
-        v = np.where(is_rcc, v, 0.0)
-        if args.ditch_manage > 0:
-            v_t = DITCH_L * vol_per_m(args.ditch_manage)
-            target = np.where(P > 0, V_MAX, v_t)
-            outlet = np.maximum(0.0, v - target)
-            v = v - outlet
-        else:
-            outlet = np.maximum(0.0, v - V_MAX)
-            v = np.minimum(v, V_MAX)
-        v_d = v
-        outlet = np.where(is_rcc, outlet, 0.0)
+        v_d, outlet = regional_ditch_step(
+            v_d, P, loss, dr, is_rcc, DITCH_L, A_TOTAL, V_MAX, args.ditch_manage)
         outlet_rcc_tot += outlet
         rcc_inc = 10.0 * outlet * conc("RCC", d) / A_TOTAL
         load_rcc += rcc_inc
@@ -495,14 +429,86 @@ def main(argv=None):
     return run
 
 
-if __name__ == "__main__":
-    main()
 
 
+from osgeo import gdal
+from pathlib import Path
+import csv,hashlib,importlib.util,json,sys,uuid
+from datetime import date,timedelta
+sys.dont_write_bytecode=True
+PACKAGE=Path(__file__).resolve().parent
 
+def project_root():
+    for p in PACKAGE.parents:
+        if (p/'模型/2026.9.3/模型背景数据').is_dir():return p
+    raise FileNotFoundError('请将核心计算代码放在包含模型/2026.9.3/模型背景数据的项目内。')
 
+def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 
+def run(preset='current_2024',root=None):
+    from osgeo import gdal
+    import numpy as np
+    root=Path(root) if root else project_root()
+    config_path=PACKAGE/'configs'/f'{preset}.json'
+    config=json.loads(config_path.read_text(encoding='utf-8'))
+    for key in ['year','start','days']:
+        flag='--'+key
+        if flag not in config['arguments'] or config['arguments'][config['arguments'].index(flag)+1]!=str(config[key]):
+            raise ValueError('配置头部与arguments不一致：'+key)
+    if '--rm-daily-cap' in config['arguments']:
+        raise ValueError('此选项尚待水量闭合核验；复现配置不使用该选项。')
+    if '--limit' in config['arguments']:
+        raise ValueError('本入口按完整区域复现；局部运行需独立定义土壤缺失值填补域。')
+    base=root/'模型/2026.9.3/模型背景数据'
+    workspace=root/'.codex-work/four_core_runs/regional';workspace.mkdir(parents=True,exist_ok=True)
+    inputs=[base/'nitrogen_fertilizer_use/Nfer-2018.hdr',base/'rice_crayfish/Rice_2021.tif',base/'nitrogen_fertilizer_use/Nfer-2018',base/'soil/Environmental Date_pH.tif',base/'soil/Environmental Data_SOM.tif',PACKAGE/'inputs/daily_full_precision.csv']
+    start=date.fromisoformat(config['start']);dates=[start+timedelta(days=i) for i in range(config['days'])]
+    for d in dates:
+        doy=d.timetuple().tm_yday;y=d.year
+        inputs += [base/f'rain daily tiff/{y}/PRE_{y}_Day_{doy:03d}.tif',base/f'蒸散发/ET_{y}_daily_tiff/ET_{y}{doy:03d}.tif']
+    missing=[str(p) for p in inputs if not p.exists()]
+    if missing:raise FileNotFoundError('\n'.join(missing))
+    records=[{'path':str(p),'sha256':digest(p),'bytes':p.stat().st_size} for p in inputs]
+    signature={'dates':[str(d) for d in dates],'inputs':records,'engine_sha256':digest(PACKAGE/'regional_model.py'),'modules':{n:digest(PACKAGE/n) for n in ['water_balance.py','water_quality.py']}}
+    key=hashlib.sha256(json.dumps(signature,sort_keys=True).encode()).hexdigest()[:20]
+    cache=workspace/'cache'/f'{config["year"]}_{key}.npz';cache.parent.mkdir(exist_ok=True)
+    mask_ds=gdal.Open(str(base/'rice_crayfish/Rice_2021.tif'));mask=mask_ds.ReadAsArray();gt=mask_ds.GetGeoTransform()
+    if abs(abs(gt[1]*gt[5]-gt[2]*gt[4])/10000-4.554342663494959)>1e-8:
+        raise ValueError('当前核验版本使用固定像元面积；更换模板需要同步修改几何参数。')
+    shape=(len(dates),int(((mask==1)|(mask==3)).sum()))
+    if cache.exists():
+        with np.load(cache) as z:
+            if z['rain'].shape!=shape or z['et'].shape!=shape:raise ValueError('缓存维度不符合日期与掩膜。')
+    cache.with_suffix('.json').write_text(json.dumps(signature,ensure_ascii=False,indent=2),encoding='utf-8')
+    module_name='regional_model_'+uuid.uuid4().hex
+    spec=importlib.util.spec_from_file_location(module_name,PACKAGE/'regional_model.py')
+    model=importlib.util.module_from_spec(spec);spec.loader.exec_module(model)
+    model.ROOT=root;model.BASE=base;model.POINTRUN=PACKAGE/'inputs';model.HERE=workspace
+    args=config['arguments']+['--tag',config['id'],'--cache-file',str(cache)]
+    output=model.calculate(args)
+    # 日期分组只用于重现既有统计口径，不代表逐像元物候识别。
+    with (output/'逐日区域账本.csv').open(encoding='utf-8-sig') as f:ledger=list(csv.DictReader(f))
+    groups={k:{'RM_kg':0.,'RCC_kg':0.} for k in ['06月','07月01日至08月15日','08月16日以后']}
+    for r in ledger:
+        md=r['date'][5:];k='06月' if md<'07-01' else ('07月01日至08月15日' if md<='08-15' else '08月16日以后')
+        groups[k]['RM_kg']+=float(r['rm_load_kg']);groups[k]['RCC_kg']+=float(r['rcc_load_kg'])
+    with (output/'日期分段负荷.csv').open('w',encoding='utf-8-sig',newline='') as f:
+        w=csv.writer(f);w.writerow(['日期组','RM_t','RCC_t','RM_pct','RCC_pct'])
+        totals={t:sum(g[t+'_kg'] for g in groups.values()) for t in ['RM','RCC']}
+        for k,g in groups.items():w.writerow([k,g['RM_kg']/1000,g['RCC_kg']/1000,100*g['RM_kg']/totals['RM'],100*g['RCC_kg']/totals['RCC']])
+    actual=json.loads((output/'summary.json').read_text(encoding='utf-8'))
+    checks={t:{k:{'expected':v,'actual':actual[t][k],'difference':actual[t][k]-v} for k,v in config['expected'][t].items()} for t in ['RM','RCC']}
+    numeric_pass=all(abs(x['difference'])<1e-6 for t in checks.values() for x in t.values())
+    verification={'preset':preset,'reference_run':config['reference_run'],'summary_checks':checks,'summary_reproduced':numeric_pass,'interpretation':'复现一致性；不代表模型实测有效性。'}
+    (output/'复现核验.json').write_text(json.dumps(verification,ensure_ascii=False,indent=2),encoding='utf-8')
+    (output/'运行清单.json').write_text(json.dumps({'config':config,'config_sha256':digest(config_path),'input_signature':signature,'cache':str(cache),'engine_sha256':digest(PACKAGE/'regional_model.py'),'modules':{n:digest(PACKAGE/n) for n in ['water_balance.py','water_quality.py']}},ensure_ascii=False,indent=2),encoding='utf-8')
+    for p in [PACKAGE/n for n in ['regional_model.py','water_balance.py','water_quality.py']]+[config_path]:
+        (output/p.name).write_bytes(p.read_bytes())
+    (workspace/f'latest_{preset}.json').write_text(json.dumps({'run':str(output)},ensure_ascii=False,indent=2),encoding='utf-8')
+    print('复现一致性:',numeric_pass,'输出:',output)
+    return output
 
-
-
-
+if __name__=='__main__':
+    import argparse
+    p=argparse.ArgumentParser();p.add_argument('--preset',default='current_2024');p.add_argument('--root')
+    a=p.parse_args();run(a.preset,a.root)
