@@ -1,0 +1,36 @@
+{
+  "id": "current_2024",
+  "year": 2024,
+  "start": "2024-06-01",
+  "days": 115,
+  "arguments": [
+    "--year",
+    "2024",
+    "--start",
+    "2024-06-01",
+    "--days",
+    "115",
+    "--c0",
+    "grid",
+    "--rm-no-drain",
+    "--rm-bund",
+    "120",
+    "--ditch-h0",
+    "800",
+    "--rcc-events",
+    "2024-06-18,2024-07-06",
+    "--rcc-calendar",
+    "--rm-calendar"
+  ],
+  "reference_run": "run_20261023_145242_c800",
+  "expected": {
+    "RM": {
+      "mean_kg_ha": 5.532285108456342,
+      "total_t": 3150.3973152030276
+    },
+    "RCC": {
+      "mean_kg_ha": 6.780012542154809,
+      "total_t": 2295.909138736783
+    }
+  }
+}

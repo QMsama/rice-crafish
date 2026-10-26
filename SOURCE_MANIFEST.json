@@ -1,0 +1,146 @@
+{
+  "registration_date": "2026-10-26",
+  "branch": "model/2024",
+  "sources": [
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/regional_model.py",
+      "path": "regional_model.py",
+      "source_sha256": "1d99c1a3358e0cadb3fde6db7d0abff10dc9e9ee5ddff62f80f0491b18e3db06",
+      "packaged_sha256": "1d99c1a3358e0cadb3fde6db7d0abff10dc9e9ee5ddff62f80f0491b18e3db06",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/run_model.py",
+      "path": "run_model.py",
+      "source_sha256": "e41c6e8d7a36cd26a8aeac1dd32ba14fe5444d7e21a1010cca6d17f2272a0983",
+      "packaged_sha256": "9d32933ec218f942f7fc5dab038fc72d7478c13aab3d961c47656ed7156c7ba6",
+      "adaptation": "将启动默认配置设为current_2024；其余代码保留"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/qgis_entry.py",
+      "path": "qgis_entry.py",
+      "source_sha256": "698aaa1b16e86a878dd98d53c5bc9f4a0751d81e02b6df83e962ca1ac8931b55",
+      "packaged_sha256": "cf573438164106f098ee156c351a720f792485fcc39472b6d9f996a0fa2ff517",
+      "adaptation": "将启动默认配置设为current_2024；其余代码保留"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/inputs/daily_full_precision.csv",
+      "path": "inputs/daily_full_precision.csv",
+      "source_sha256": "f66f24748599b0de82b5c88c7ee8ffe88b8102bcfcb893574d165db55ae3655e",
+      "packaged_sha256": "f66f24748599b0de82b5c88c7ee8ffe88b8102bcfcb893574d165db55ae3655e",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/configs/current_2024.json",
+      "path": "configs/current_2024.json",
+      "source_sha256": "deb97dbba516643ed5c87ed24a4b45fef78a02e19ec7707cf484a9ae0b2028f7",
+      "packaged_sha256": "deb97dbba516643ed5c87ed24a4b45fef78a02e19ec7707cf484a9ae0b2028f7",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/configs/current_2024_reference.json",
+      "path": "configs/current_2024_reference.json",
+      "source_sha256": "2d38ad36bde6120756a340ec0bbe562e3e92965597d27564fe50df054705a1e1",
+      "packaged_sha256": "2d38ad36bde6120756a340ec0bbe562e3e92965597d27564fe50df054705a1e1",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_010154_y2024/summary.json",
+      "path": "history/summaries/run_20261023_010154_y2024.json",
+      "source_sha256": "16587cf28e18cdb2f1f40aec92e894bc755130473a64b05b1dc0ff6bda01a31b",
+      "packaged_sha256": "16587cf28e18cdb2f1f40aec92e894bc755130473a64b05b1dc0ff6bda01a31b",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_010257_y2024b/summary.json",
+      "path": "history/summaries/run_20261023_010257_y2024b.json",
+      "source_sha256": "9fadfcf7d4b55bd528b36a1aa754ecd1dd9515d205e0bdc3f77d67bfe83bb932",
+      "packaged_sha256": "9fadfcf7d4b55bd528b36a1aa754ecd1dd9515d205e0bdc3f77d67bfe83bb932",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_010322_y2024c/summary.json",
+      "path": "history/summaries/run_20261023_010322_y2024c.json",
+      "source_sha256": "83dc54c573b99923c9f9b1a158fd713ca8f7621e917224b4c6f330795cac3d6d",
+      "packaged_sha256": "83dc54c573b99923c9f9b1a158fd713ca8f7621e917224b4c6f330795cac3d6d",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_010359_y2024free/summary.json",
+      "path": "history/summaries/run_20261023_010359_y2024free.json",
+      "source_sha256": "309d7358e46bfdf6ffbf50b1d2659244cad0abde520038f9ee5d1c18693402b0",
+      "packaged_sha256": "309d7358e46bfdf6ffbf50b1d2659244cad0abde520038f9ee5d1c18693402b0",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_133317_y2024old/summary.json",
+      "path": "history/summaries/run_20261023_133317_y2024old.json",
+      "source_sha256": "9eaa4dd21a9a91575dfab4d25658fc51915671b353e4eccc875ec8db7eb33c5a",
+      "packaged_sha256": "9eaa4dd21a9a91575dfab4d25658fc51915671b353e4eccc875ec8db7eb33c5a",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_133955_y2024cap500/summary.json",
+      "path": "history/summaries/run_20261023_133955_y2024cap500.json",
+      "source_sha256": "aab4e6e76bc661fe40b49015127aa402082a320deb6bb9a4ef34231eb88f97c8",
+      "packaged_sha256": "aab4e6e76bc661fe40b49015127aa402082a320deb6bb9a4ef34231eb88f97c8",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_134002_y2024cap600/summary.json",
+      "path": "history/summaries/run_20261023_134002_y2024cap600.json",
+      "source_sha256": "cb84de15e44f9fa9ef5034ca249447bf5a026310177c18701ba207c5e6910d99",
+      "packaged_sha256": "cb84de15e44f9fa9ef5034ca249447bf5a026310177c18701ba207c5e6910d99",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_134504_y2024d400/summary.json",
+      "path": "history/summaries/run_20261023_134504_y2024d400.json",
+      "source_sha256": "42e087af3b10a876668ed0730580131ed774c61cc6be3b2bb1056884d62d741e",
+      "packaged_sha256": "42e087af3b10a876668ed0730580131ed774c61cc6be3b2bb1056884d62d741e",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_134544_y2024d400m/summary.json",
+      "path": "history/summaries/run_20261023_134544_y2024d400m.json",
+      "source_sha256": "c8ee7fb1bd4407910fe165205d79dcdf24824fb3d522d0731b109b2b414a97ea",
+      "packaged_sha256": "c8ee7fb1bd4407910fe165205d79dcdf24824fb3d522d0731b109b2b414a97ea",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_142048_y2024cal/summary.json",
+      "path": "history/summaries/run_20261023_142048_y2024cal.json",
+      "source_sha256": "f97332d0c75c9800dc9cbf3c6ca3dd06297a1fb7cd4262af2c5241c9168cace6",
+      "packaged_sha256": "f97332d0c75c9800dc9cbf3c6ca3dd06297a1fb7cd4262af2c5241c9168cace6",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_144327_y2024cal2/summary.json",
+      "path": "history/summaries/run_20261023_144327_y2024cal2.json",
+      "source_sha256": "d21ad2b02c2f7b4907cd4bb0fcf74be2b0fc167be6c08f435e45522d261c418f",
+      "packaged_sha256": "d21ad2b02c2f7b4907cd4bb0fcf74be2b0fc167be6c08f435e45522d261c418f",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_145231_a400/summary.json",
+      "path": "history/summaries/run_20261023_145231_a400.json",
+      "source_sha256": "ccb2f14684fb37f59cd0282e9fa01b566245abc995d4c3e29da39c9fba35631b",
+      "packaged_sha256": "ccb2f14684fb37f59cd0282e9fa01b566245abc995d4c3e29da39c9fba35631b",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_145236_bmanage/summary.json",
+      "path": "history/summaries/run_20261023_145236_bmanage.json",
+      "source_sha256": "8baea2821f869ae6245ed8ac0d57e7435161966daf02a12707395cc3a711a1f7",
+      "packaged_sha256": "8baea2821f869ae6245ed8ac0d57e7435161966daf02a12707395cc3a711a1f7",
+      "adaptation": "原始摘要字节"
+    },
+    {
+      "source": "external/regional_2022/run_20261023_145242_c800/summary.json",
+      "path": "history/summaries/run_20261023_145242_c800.json",
+      "source_sha256": "2d38ad36bde6120756a340ec0bbe562e3e92965597d27564fe50df054705a1e1",
+      "packaged_sha256": "2d38ad36bde6120756a340ec0bbe562e3e92965597d27564fe50df054705a1e1",
+      "adaptation": "原始摘要字节"
+    }
+  ]
+}
