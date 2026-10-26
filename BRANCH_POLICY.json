@@ -1,0 +1,16 @@
+{
+  "role": "annual_mainline",
+  "year": 2024,
+  "stable_branch": "model/2024",
+  "feature_base": "model/2024",
+  "pr_base": "model/2024",
+  "feature_prefixes": [
+    "feat/2024-",
+    "fix/2024-",
+    "chore/2024-"
+  ],
+  "model_directory": "models/2024",
+  "merge_method": "merge",
+  "shared_changes": "Separate adaptation, verification and PR for each annual mainline.",
+  "catalog_branch": "main"
+}
