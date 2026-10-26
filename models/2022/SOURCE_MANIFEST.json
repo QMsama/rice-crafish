@@ -1,0 +1,265 @@
+{
+  "registration_date": "2026-10-26",
+  "branch": "model/2022",
+  "sources": [
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/regional_model.py",
+      "path": "regional_model.py",
+      "source_sha256": "1d99c1a3358e0cadb3fde6db7d0abff10dc9e9ee5ddff62f80f0491b18e3db06",
+      "packaged_sha256": "1d99c1a3358e0cadb3fde6db7d0abff10dc9e9ee5ddff62f80f0491b18e3db06",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/run_model.py",
+      "path": "run_model.py",
+      "source_sha256": "e41c6e8d7a36cd26a8aeac1dd32ba14fe5444d7e21a1010cca6d17f2272a0983",
+      "packaged_sha256": "e41c6e8d7a36cd26a8aeac1dd32ba14fe5444d7e21a1010cca6d17f2272a0983",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/qgis_entry.py",
+      "path": "qgis_entry.py",
+      "source_sha256": "698aaa1b16e86a878dd98d53c5bc9f4a0751d81e02b6df83e962ca1ac8931b55",
+      "packaged_sha256": "698aaa1b16e86a878dd98d53c5bc9f4a0751d81e02b6df83e962ca1ac8931b55",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/inputs/daily_full_precision.csv",
+      "path": "inputs/daily_full_precision.csv",
+      "source_sha256": "f66f24748599b0de82b5c88c7ee8ffe88b8102bcfcb893574d165db55ae3655e",
+      "packaged_sha256": "f66f24748599b0de82b5c88c7ee8ffe88b8102bcfcb893574d165db55ae3655e",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/configs/paper_2022.json",
+      "path": "configs/paper_2022.json",
+      "source_sha256": "29bc9b53c2fce0f89fe98aa282bc56727ff390ecdca0d9901158c070fad0c197",
+      "packaged_sha256": "29bc9b53c2fce0f89fe98aa282bc56727ff390ecdca0d9901158c070fad0c197",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/configs/paper_2022_reference.json",
+      "path": "configs/paper_2022_reference.json",
+      "source_sha256": "a37fd5d80e990e13ac97ae24ecb196a7201f213c829d35c9f9deb9ac4d4d9477",
+      "packaged_sha256": "a37fd5d80e990e13ac97ae24ecb196a7201f213c829d35c9f9deb9ac4d4d9477",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/configs/legacy_2022.json",
+      "path": "configs/legacy_2022.json",
+      "source_sha256": "665b49f59b6a515a0d74cee5a37594d53e306ef875d039832c456ea54ebb8a28",
+      "packaged_sha256": "665b49f59b6a515a0d74cee5a37594d53e306ef875d039832c456ea54ebb8a28",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "模型/2026.9.3/面上推广/核心计算代码/configs/legacy_2022_reference.json",
+      "path": "configs/legacy_2022_reference.json",
+      "source_sha256": "9fe8f4953ee4f7571ca1abaa4c1e1ea53bccbef3f8446f37e26d34849d26a7f1",
+      "packaged_sha256": "9fe8f4953ee4f7571ca1abaa4c1e1ea53bccbef3f8446f37e26d34849d26a7f1",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/recompute_with_et.py",
+      "path": "point_2022/recompute_with_et.py",
+      "source_sha256": "c1c48bf5b09e028a0bfcf40fc668acb2c7dc2e6bf1a10e5febe155f994fcfd6f",
+      "packaged_sha256": "c1c48bf5b09e028a0bfcf40fc668acb2c7dc2e6bf1a10e5febe155f994fcfd6f",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/drying_control.py",
+      "path": "point_2022/drying_control.py",
+      "source_sha256": "782cd0b33163cfb8128e770f219df48c68e373a6e2fc5ce4ede2e234b908c079",
+      "packaged_sha256": "782cd0b33163cfb8128e770f219df48c68e373a6e2fc5ce4ede2e234b908c079",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/build_validation_delivery.py",
+      "path": "point_2022/build_validation_delivery.py",
+      "source_sha256": "5b339e909fb18436b265f0979f7dad1d0efb45c5971163652a16979372444f45",
+      "packaged_sha256": "5b339e909fb18436b265f0979f7dad1d0efb45c5971163652a16979372444f45",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/recompute_natural_drydown.py",
+      "path": "point_2022/recompute_natural_drydown.py",
+      "source_sha256": "3cb17c99e469c593b96a5b30deb7917374d49d2d0d17b6b94db3bbc412cd22ca",
+      "packaged_sha256": "3cb17c99e469c593b96a5b30deb7917374d49d2d0d17b6b94db3bbc412cd22ca",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/recompute_drying_control.py",
+      "path": "point_2022/recompute_drying_control.py",
+      "source_sha256": "a015e920d4653bbb1b7859943a4b58762ac293f1f18c79a0d27de20d8bfa49b1",
+      "packaged_sha256": "a015e920d4653bbb1b7859943a4b58762ac293f1f18c79a0d27de20d8bfa49b1",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/run_manual_observations.py",
+      "path": "point_2022/run_manual_observations.py",
+      "source_sha256": "cb3c4c9a165c3db654660313c047c7e2d21112b4b8938e276e927fec0984906c",
+      "packaged_sha256": "cb3c4c9a165c3db654660313c047c7e2d21112b4b8938e276e927fec0984906c",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/run_joint_point_2022.py",
+      "path": "point_2022/run_joint_point_2022.py",
+      "source_sha256": "b5c961044db6f8c1b271f36e133dbbeee14a28c07d5bab8c82b04968e481a7b4",
+      "packaged_sha256": "b5c961044db6f8c1b271f36e133dbbeee14a28c07d5bab8c82b04968e481a7b4",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/run_feed_background_2022.py",
+      "path": "point_2022/run_feed_background_2022.py",
+      "source_sha256": "46054ebb4101f0109f6bfac822ee01229f440083dd614d5461356aae43583e43",
+      "packaged_sha256": "46054ebb4101f0109f6bfac822ee01229f440083dd614d5461356aae43583e43",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/run_point_2022.py",
+      "path": "point_2022/run_point_2022.py",
+      "source_sha256": "5ebc9be6a7f29a6ad7f0eddab8d232ae6a9ad9e94b16a3f59199f327b1b2b7ff",
+      "packaged_sha256": "5ebc9be6a7f29a6ad7f0eddab8d232ae6a9ad9e94b16a3f59199f327b1b2b7ff",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/observation_input.py",
+      "path": "point_2022/observation_input.py",
+      "source_sha256": "ae8a0e4e2ceac97f400fe0323a354e279ae104081312a40b16b8506c11c8dcc4",
+      "packaged_sha256": "ae8a0e4e2ceac97f400fe0323a354e279ae104081312a40b16b8506c11c8dcc4",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/bounded_k.py",
+      "path": "point_2022/bounded_k.py",
+      "source_sha256": "af4521115b122ac6863e8fededef6c668c81327e5a28e86b95afebf8df4355bf",
+      "packaged_sha256": "af4521115b122ac6863e8fededef6c668c81327e5a28e86b95afebf8df4355bf",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/result_report.py",
+      "path": "point_2022/result_report.py",
+      "source_sha256": "4c0aacbad77f6402db4428a67e22cfa41581c8dc7f04de42285c9e8e3c07b5fa",
+      "packaged_sha256": "4c0aacbad77f6402db4428a67e22cfa41581c8dc7f04de42285c9e8e3c07b5fa",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/compare_original_water_rules.py",
+      "path": "point_2022/compare_original_water_rules.py",
+      "source_sha256": "f448c9311bfda82f9eae2d0978090a5724a9cab542dbc0567cb7e5ea6f71f564",
+      "packaged_sha256": "f448c9311bfda82f9eae2d0978090a5724a9cab542dbc0567cb7e5ea6f71f564",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/run_legacy_water_observations.py",
+      "path": "point_2022/run_legacy_water_observations.py",
+      "source_sha256": "a74ebff77a21309500fe99de003f2782e8ca02206dde036b867b6b335d238817",
+      "packaged_sha256": "a74ebff77a21309500fe99de003f2782e8ca02206dde036b867b6b335d238817",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/run_water_level_2022.py",
+      "path": "point_2022/run_water_level_2022.py",
+      "source_sha256": "5ccd5817ba0f6e3d4c02066696bcd983515b77eed31ed69d942b1427b7f27c9a",
+      "packaged_sha256": "5ccd5817ba0f6e3d4c02066696bcd983515b77eed31ed69d942b1427b7f27c9a",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/config.json",
+      "path": "point_2022/config.json",
+      "source_sha256": "71ae9ae4730041100267c0df4239e6873bb4412858148fc3dc67629f434651cd",
+      "packaged_sha256": "71ae9ae4730041100267c0df4239e6873bb4412858148fc3dc67629f434651cd",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/et_recompute_runs/20261022_155056/recompute_with_et.py",
+      "path": "archive/point_2022/et_20261022_155056/recompute_with_et.py",
+      "source_sha256": "bb99e0999292c98b52a65e92fec8dc64989bb96c814b0a160de96a37e73b94df",
+      "packaged_sha256": "bb99e0999292c98b52a65e92fec8dc64989bb96c814b0a160de96a37e73b94df",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/et_recompute_runs/20261022_155056/drying_control.py",
+      "path": "archive/point_2022/et_20261022_155056/drying_control.py",
+      "source_sha256": "782cd0b33163cfb8128e770f219df48c68e373a6e2fc5ce4ede2e234b908c079",
+      "packaged_sha256": "782cd0b33163cfb8128e770f219df48c68e373a6e2fc5ce4ede2e234b908c079",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/et_recompute_runs/20261022_155056/build_validation_delivery.py",
+      "path": "archive/point_2022/et_20261022_155056/build_validation_delivery.py",
+      "source_sha256": "5b339e909fb18436b265f0979f7dad1d0efb45c5971163652a16979372444f45",
+      "packaged_sha256": "5b339e909fb18436b265f0979f7dad1d0efb45c5971163652a16979372444f45",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/drying_control_runs/20261022_110405/drying_control.py",
+      "path": "archive/point_2022/drying_20261022_110405/drying_control.py",
+      "source_sha256": "782cd0b33163cfb8128e770f219df48c68e373a6e2fc5ce4ede2e234b908c079",
+      "packaged_sha256": "782cd0b33163cfb8128e770f219df48c68e373a6e2fc5ce4ede2e234b908c079",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/qgis_point_2022/natural_drydown_runs/20261019_152804/recompute_natural_drydown.py",
+      "path": "archive/point_2022/natural_20261019_152804/recompute_natural_drydown.py",
+      "source_sha256": "3cb17c99e469c593b96a5b30deb7917374d49d2d0d17b6b94db3bbc412cd22ca",
+      "packaged_sha256": "3cb17c99e469c593b96a5b30deb7917374d49d2d0d17b6b94db3bbc412cd22ca",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": "external/regional_2022/regional_run.py",
+      "path": "archive/regional_2022/regional_run.py",
+      "source_sha256": "ceb4a95db28367e6298c2454e324bd47b81447c23c1f71bd1c4e877df5076379",
+      "packaged_sha256": "ceb4a95db28367e6298c2454e324bd47b81447c23c1f71bd1c4e877df5076379",
+      "adaptation": "原始字节"
+    },
+    {
+      "source": ".codex-work/risk-source-literature-20261024/plot_load_area.py",
+      "path": "source_area_2022/load_area_curve.py",
+      "source_sha256": "ef62ca3fdead69116f4cf2a731b8dbfc52c719b62175cb671e2631ec7c261a52",
+      "packaged_sha256": "7e75b146bb71f3594b18c038a64db0fcbb7c186db555b27d6b329ca020a0f3bf",
+      "adaptation": [
+        "Project root and isolated run directory supplied by runner environment.",
+        "Load Microsoft YaHei when available, otherwise use DejaVu Sans; drawing and numerical settings are retained."
+      ]
+    },
+    {
+      "source": ".codex-work/risk-source-literature-20261024/source_area_map/agent_county/county_statistics.py",
+      "path": "source_area_2022/county_statistics.py",
+      "source_sha256": "63562318cd331f429b2e9f5cb1fc8c33a9c42c2891a9e413948982604c8b47a9",
+      "packaged_sha256": "15b7c4491f989811ceab99ba2bcfce4122f00defaea415a35c41cefcc5bdd3d1",
+      "adaptation": [
+        "Project root and isolated run directory supplied by runner environment.",
+        "County boundary accepts a runner-supplied path; default source lookup is retained."
+      ]
+    },
+    {
+      "source": ".codex-work/risk-source-literature-20261024/source_area_map/plot_source_area_map.py",
+      "path": "source_area_2022/source_area_map.py",
+      "source_sha256": "7037244cd789ce459da96b6650fb9db2d4d08d673cfafdacc12de3b8ee51e298",
+      "packaged_sha256": "42a2e56a074902cb0ea3afb4ff1370e312fa52de3767c5324e979a0784539633",
+      "adaptation": [
+        "Project root and isolated run directory supplied by runner environment.",
+        "Study boundary accepts a runner-supplied path; default source location is retained.",
+        "Load Microsoft YaHei when available, otherwise use DejaVu Sans; drawing and numerical settings are retained."
+      ]
+    },
+    {
+      "source": null,
+      "path": "source_area_2022/run_source_area.py",
+      "source_sha256": null,
+      "packaged_sha256": "1aac0878149b922f378358a3b88f64bcc2524c1bb6987a24309c8705f449b67c",
+      "adaptation": [
+        "New CLI runner for explicit project root, unique output directories, same-interpreter child processes and run manifests."
+      ]
+    },
+    {
+      "source": null,
+      "path": "source_area_2022/README.md",
+      "source_sha256": null,
+      "packaged_sha256": "fafc797e74075d504931e15a5dfd574fa049de94a8ab1d7dd4de94ede5dfec17",
+      "adaptation": [
+        "New usage, external data schema, algorithm and reference statistics documentation."
+      ]
+    }
+  ]
+}
